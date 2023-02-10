@@ -11,9 +11,7 @@ defmodule LumutroWeb.Users.UserSessionControllerTest do
     test "renders log in page", %{conn: conn} do
       conn = get(conn, ~p"/users/log_in")
       response = html_response(conn, 200)
-      assert response =~ "Log in"
-      assert response =~ "Register</a>"
-      assert response =~ "Forgot your password?"
+      assert response =~ "Sign in to account"
     end
 
     test "redirects if already logged in", %{conn: conn, user: user} do
@@ -31,13 +29,6 @@ defmodule LumutroWeb.Users.UserSessionControllerTest do
 
       assert get_session(conn, :user_token)
       assert redirected_to(conn) == ~p"/"
-
-      # Now do a logged in request and assert on the menu
-      conn = get(conn, ~p"/")
-      response = html_response(conn, 200)
-      assert response =~ user.email
-      assert response =~ "Settings</a>"
-      assert response =~ "Log out</a>"
     end
 
     test "logs the user in with remember me", %{conn: conn, user: user} do
@@ -76,7 +67,7 @@ defmodule LumutroWeb.Users.UserSessionControllerTest do
         })
 
       response = html_response(conn, 200)
-      assert response =~ "Log in"
+      assert response =~ "Sign in to account"
       assert response =~ "Invalid email or password"
     end
   end

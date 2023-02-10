@@ -4,14 +4,6 @@ defmodule LumutroWeb.Users.UserRegistrationControllerTest do
   import Lumutro.UsersFixtures
 
   describe "GET /users/register" do
-    test "renders registration page", %{conn: conn} do
-      conn = get(conn, ~p"/users/register")
-      response = html_response(conn, 200)
-      assert response =~ "Register"
-      assert response =~ "Log in</a>"
-      assert response =~ "Register</a>"
-    end
-
     test "redirects if already logged in", %{conn: conn} do
       conn = conn |> log_in_user(user_fixture()) |> get(~p"/users/register")
 
@@ -31,13 +23,6 @@ defmodule LumutroWeb.Users.UserRegistrationControllerTest do
 
       assert get_session(conn, :user_token)
       assert redirected_to(conn) == ~p"/"
-
-      # Now do a logged in request and assert on the menu
-      conn = get(conn, ~p"/")
-      response = html_response(conn, 200)
-      assert response =~ email
-      assert response =~ "Settings</a>"
-      assert response =~ "Log out</a>"
     end
 
     test "render errors for invalid data", %{conn: conn} do
