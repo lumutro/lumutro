@@ -4,5 +4,5 @@
 
 /* This file is for your main application CSS */
 html, body {
-    @apply h-full bg-white antialiased;
+    @apply h-full antialiased;
 }
