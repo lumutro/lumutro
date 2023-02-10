@@ -3,7 +3,7 @@
     Sign in to account
     <:subtitle>
       Don't have an account?
-      <.link navigate={~p"/users/register"} class="font-semibold text-brand hover:underline">
+      <.link navigate={~p"/users/register"} class="font-semibold link">
         Sign up
       </.link>
       for an account now.
@@ -18,12 +18,12 @@
 
     <:actions :let={f}>
       <.input field={{f, :remember_me}} type="checkbox" label="Keep me logged in" />
-      <.link href={~p"/users/reset_password"} class="text-sm font-semibold">
+      <.link href={~p"/users/reset_password"} class="text-sm font-semibold link">
         Forgot your password?
       </.link>
     </:actions>
     <:actions>
-      <.button phx-disable-with="Signing in..." class="btn btn-primary">
+      <.button phx-disable-with="Signing in..." class="w-full btn btn-primary">
         Sign in <span aria-hidden="true">→</span>
       </.button>
     </:actions>

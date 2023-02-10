@@ -7,14 +7,14 @@
   <.simple_form :let={f} for={:user} action={~p"/users/reset_password"}>
     <.input field={{f, :email}} type="email" placeholder="Email" required />
     <:actions>
-      <.button phx-disable-with="Sending..." class="w-full">
+      <.button phx-disable-with="Sending..." class="w-full btn btn-primary">
         Send password reset instructions
       </.button>
     </:actions>
   </.simple_form>
   <p class="text-center mt-4">
-    <.link href={~p"/users/register"}>Register</.link>
+    <.link href={~p"/users/register"} class="link">Register</.link>
     |
-    <.link href={~p"/users/log_in"}>Log in</.link>
+    <.link href={~p"/users/log_in"} class="link">Log in</.link>
   </p>
 </div>

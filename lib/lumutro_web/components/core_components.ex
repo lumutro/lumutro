@@ -200,7 +200,7 @@ defmodule LumutroWeb.CoreComponents do
   def simple_form(assigns) do
     ~H"""
     <.form :let={f} for={@for} as={@as} {@rest}>
-      <div class="space-y-8 bg-white mt-10">
+      <div class="space-y-8 mt-10">
         <%= render_slot(@inner_block, f) %>
         <div :for={action <- @actions} class="mt-2 flex items-center justify-between gap-6">
           <%= render_slot(action, f) %>
@@ -226,15 +226,7 @@ defmodule LumutroWeb.CoreComponents do
 
   def button(assigns) do
     ~H"""
-    <button
-      type={@type}
-      class={[
-        "phx-submit-loading:opacity-75 rounded-lg bg-zinc-900 hover:bg-zinc-700 py-2 px-3",
-        "text-sm font-semibold leading-6 text-white active:text-white/80",
-        @class
-      ]}
-      {@rest}
-    >
+    <button type={@type} class={["btn", @class]} {@rest}>
       <%= render_slot(@inner_block) %>
     </button>
     """
@@ -289,7 +281,7 @@ defmodule LumutroWeb.CoreComponents do
     assigns = assign_new(assigns, :checked, fn -> input_equals?(assigns.value, "true") end)
 
     ~H"""
-    <label phx-feedback-for={@name} class="flex items-center gap-4 text-sm leading-6 text-zinc-600">
+    <label phx-feedback-for={@name} class="flex items-center gap-4 text-sm leading-6">
       <input type="hidden" name={@name} value="false" />
       <input
         type="checkbox"
@@ -297,7 +289,7 @@ defmodule LumutroWeb.CoreComponents do
         name={@name}
         value="true"
         checked={@checked}
-        class="rounded border-zinc-300 text-zinc-900 focus:ring-zinc-900"
+        class="checkbox"
         {@rest}
       />
       <%= @label %>
@@ -332,7 +324,7 @@ defmodule LumutroWeb.CoreComponents do
         id={@id || @name}
         name={@name}
         class={[
-          input_border(@errors),
+          error_class_on_error(@errors),
           "mt-2 block min-h-[6rem] w-full rounded-lg border-zinc-300 py-[7px] px-[11px]",
           "text-zinc-900 focus:border-zinc-400 focus:outline-none focus:ring-4 focus:ring-zinc-800/5 sm:text-sm sm:leading-6",
           "phx-no-feedback:border-zinc-300 phx-no-feedback:focus:border-zinc-400 phx-no-feedback:focus:ring-zinc-800/5"
@@ -355,10 +347,8 @@ defmodule LumutroWeb.CoreComponents do
         id={@id || @name}
         value={@value}
         class={[
-          input_border(@errors),
-          "mt-2 block w-full rounded-lg border-zinc-300 py-[7px] px-[11px]",
-          "text-zinc-900 focus:outline-none focus:ring-4 sm:text-sm sm:leading-6",
-          "phx-no-feedback:border-zinc-300 phx-no-feedback:focus:border-zinc-400 phx-no-feedback:focus:ring-zinc-800/5"
+          error_class_on_error(@errors),
+          "input input-bordered input-full w-full"
         ]}
         {@rest}
       />
@@ -367,11 +357,11 @@ defmodule LumutroWeb.CoreComponents do
     """
   end
 
-  defp input_border([] = _errors),
-    do: "border-zinc-300 focus:border-zinc-400 focus:ring-zinc-800/5"
+  defp error_class_on_error([] = _errors),
+    do: ""
 
-  defp input_border([_ | _] = _errors),
-    do: "border-rose-400 focus:border-rose-400 focus:ring-rose-400/10"
+  defp error_class_on_error([_ | _] = _errors),
+    do: "input-error"
 
   @doc """
   Renders a label.
@@ -381,7 +371,7 @@ defmodule LumutroWeb.CoreComponents do
 
   def label(assigns) do
     ~H"""
-    <label for={@for} class="block text-sm font-semibold leading-6 text-zinc-800">
+    <label for={@for} class="label">
       <%= render_slot(@inner_block) %>
     </label>
     """
@@ -414,10 +404,10 @@ defmodule LumutroWeb.CoreComponents do
     ~H"""
     <header class={[@actions != [] && "flex items-center justify-between gap-6", @class]}>
       <div>
-        <h1 class="text-lg font-semibold leading-8 text-zinc-800">
+        <h1 class="text-lg font-semibold leading-8">
           <%= render_slot(@inner_block) %>
         </h1>
-        <p :if={@subtitle != []} class="mt-2 text-sm leading-6 text-zinc-600">
+        <p :if={@subtitle != []} class="mt-2 text-sm leading-6">
           <%= render_slot(@subtitle) %>
         </p>
       </div>
