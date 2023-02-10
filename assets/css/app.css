@@ -3,3 +3,9 @@
 @import "tailwindcss/utilities";
 
 /* This file is for your main application CSS */
+html, body {
+    @apply h-full antialiased;
+}
+.btn {
+    @apply no-animation;
+}
