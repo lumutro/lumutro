@@ -1,22 +1,22 @@
 <.header>
   Listing Organizations
   <:actions>
-    <.link href={~p"/organizations/organizations/new"}>
+    <.link href={~p"/orgs/new"}>
       <.button>New Organization</.button>
     </.link>
   </:actions>
 </.header>
 
-<.table id="organizations" rows={@organizations} row_click={&JS.navigate(~p"/organizations/organizations/#{&1}")}>
+<.table id="organizations" rows={@organizations} row_click={&JS.navigate(~p"/orgs/#{&1}")}>
   <:col :let={organization} label="Name"><%= organization.name %></:col>
   <:action :let={organization}>
     <div class="sr-only">
-      <.link navigate={~p"/organizations/organizations/#{organization}"}>Show</.link>
+      <.link navigate={~p"/orgs/#{organization}"}>Show</.link>
     </div>
-    <.link navigate={~p"/organizations/organizations/#{organization}/edit"}>Edit</.link>
+    <.link navigate={~p"/orgs/#{organization}/edit"}>Edit</.link>
   </:action>
   <:action :let={organization}>
-    <.link href={~p"/organizations/organizations/#{organization}"} method="delete" data-confirm="Are you sure?">
+    <.link href={~p"/orgs/#{organization}"} method="delete" data-confirm="Are you sure?">
       Delete
     </.link>
   </:action>

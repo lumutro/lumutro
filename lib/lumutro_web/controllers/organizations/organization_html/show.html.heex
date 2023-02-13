@@ -2,7 +2,7 @@
   Organization <%= @organization.id %>
   <:subtitle>This is a organization record from your database.</:subtitle>
   <:actions>
-    <.link href={~p"/organizations/organizations/#{@organization}/edit"}>
+    <.link href={~p"/orgs/#{@organization}/edit"}>
       <.button>Edit organization</.button>
     </.link>
   </:actions>
@@ -12,4 +12,4 @@
   <:item title="Name"><%= @organization.name %></:item>
 </.list>
 
-<.back navigate={~p"/organizations/organizations"}>Back to organizations</.back>
+<.back navigate={~p"/orgs"}>Back to organizations</.back>

@@ -19,7 +19,7 @@ defmodule LumutroWeb.Organizations.OrganizationController do
       {:ok, organization} ->
         conn
         |> put_flash(:info, "Organization created successfully.")
-        |> redirect(to: ~p"/organizations/organizations/#{organization}")
+        |> redirect(to: ~p"/orgs/#{organization}")
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, :new, changeset: changeset)
@@ -44,7 +44,7 @@ defmodule LumutroWeb.Organizations.OrganizationController do
       {:ok, organization} ->
         conn
         |> put_flash(:info, "Organization updated successfully.")
-        |> redirect(to: ~p"/organizations/organizations/#{organization}")
+        |> redirect(to: ~p"/orgs/#{organization}")
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, :edit, organization: organization, changeset: changeset)
@@ -57,6 +57,6 @@ defmodule LumutroWeb.Organizations.OrganizationController do
 
     conn
     |> put_flash(:info, "Organization deleted successfully.")
-    |> redirect(to: ~p"/organizations/organizations")
+    |> redirect(to: ~p"/orgs")
   end
 end

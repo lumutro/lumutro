@@ -1,4 +1,5 @@
 defmodule LumutroWeb.Router do
+  alias LumutroWeb.Organizations
   use LumutroWeb, :router
 
   import LumutroWeb.Users.UserAuth
@@ -21,6 +22,11 @@ defmodule LumutroWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+  end
+
+  scope "/" do
+    pipe_through [:browser, :require_authenticated_user]
+    resources "/orgs", Organizations.OrganizationController
   end
 
   # Other scopes may use custom stacks.
