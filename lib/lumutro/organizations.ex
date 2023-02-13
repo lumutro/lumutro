@@ -7,6 +7,7 @@ defmodule Lumutro.Organizations do
   alias Lumutro.Repo
 
   alias Lumutro.Organizations.Organization
+  alias Lumutro.Organizations.Membership
 
   @doc """
   Returns the list of organizations.
@@ -100,5 +101,24 @@ defmodule Lumutro.Organizations do
   """
   def change_organization(%Organization{} = organization, attrs \\ %{}) do
     Organization.changeset(organization, attrs)
+  end
+
+  @doc """
+  Creates a membership
+
+  ## Examples
+
+    iex> create_membership(%{field: value})
+    {:ok, %Membership{}}
+
+    iex> create_membership(%{field: bad_value})
+    {:error, %Ecto.Changeset{}}
+  """
+  def create_membership(organization, user, attrs \\ %{}) do
+    %Membership{}
+    |> Membership.changeset(attrs)
+    |> Ecto.Changeset.put_assoc(:organization, organization)
+    |> Ecto.Changeset.put_assoc(:user, user)
+    |> Repo.insert()
   end
 end
