@@ -81,8 +81,6 @@ defmodule Lumutro.OrganizationsTest do
   describe "memberships" do
     setup [:setup_user, :setup_organization]
 
-    @invalid_attrs %{role: nil}
-
     test "create_membership/1 with valid data creates a membership", %{
       user: user,
       organization: organization
