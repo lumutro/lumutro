@@ -15,12 +15,14 @@ defmodule LumutroWeb.Organizations.OrganizationController do
   end
 
   def create(conn, %{"organization" => organization_params}) do
-    case Organizations.create_organization(organization_params) do
-      {:ok, organization} ->
-        conn
-        |> put_flash(:info, "Organization created successfully.")
-        |> redirect(to: ~p"/orgs/#{organization}")
+    user = conn.assigns.current_user
 
+    with {:ok, organization} <- Organizations.create_organization(organization_params),
+         {:ok, _} <- Organizations.create_membership(organization, user, %{role: :owner}) do
+      conn
+      |> put_flash(:info, "Organization created successfully.")
+      |> redirect(to: ~p"/orgs/#{organization}")
+    else
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, :new, changeset: changeset)
     end

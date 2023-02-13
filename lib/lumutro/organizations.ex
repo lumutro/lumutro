@@ -104,6 +104,19 @@ defmodule Lumutro.Organizations do
   end
 
   @doc """
+  Return users associations for an account
+
+  ## Examples
+
+    iex> with_members(organization)
+    %Organization{members: [...]}
+  """
+  def with_members(organization) do
+    organization
+    |> Repo.preload(:members, skip_organization_id: true)
+  end
+
+  @doc """
   Creates a membership
 
   ## Examples

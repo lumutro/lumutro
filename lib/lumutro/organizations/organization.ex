@@ -7,6 +7,9 @@ defmodule Lumutro.Organizations.Organization do
   schema "organizations" do
     field :name, :string
 
+    has_many :memberships, Lumutro.Organizations.Membership
+    has_many :members, through: [:memberships, :user]
+
     timestamps()
   end
 
