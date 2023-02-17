@@ -3,6 +3,7 @@ defmodule LumutroWeb.Router do
   use LumutroWeb, :router
 
   import LumutroWeb.Users.UserAuth
+  import LumutroWeb.Utils.Pipes
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -19,7 +20,7 @@ defmodule LumutroWeb.Router do
   end
 
   scope "/", LumutroWeb do
-    pipe_through :browser
+    pipe_through [:browser, :require_authenticated_user, :redirect_on_org]
 
     get "/", PageController, :home
   end
