@@ -9,6 +9,9 @@ defmodule Lumutro.Users.User do
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
 
+    has_many :memberships, Lumutro.Organizations.Membership, foreign_key: :user_id
+    has_many :organizations, through: [:memberships, :organization]
+
     timestamps()
   end
 

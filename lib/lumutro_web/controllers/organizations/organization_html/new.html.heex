@@ -1,0 +1,16 @@
+<.header>
+  New Organization
+  <:subtitle>Use this form to manage organization records in your database.</:subtitle>
+</.header>
+
+<.simple_form :let={f} for={@changeset} action={~p"/orgs"}>
+  <.error :if={@changeset.action}>
+    Oops, something went wrong! Please check the errors below.
+  </.error>
+  <.input field={{f, :name}} type="text" label="Name" />
+  <:actions>
+    <.button>Save Organization</.button>
+  </:actions>
+</.simple_form>
+
+<.back navigate={~p"/orgs"}>Back to organizations</.back>
