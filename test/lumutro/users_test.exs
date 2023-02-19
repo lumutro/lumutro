@@ -2,9 +2,12 @@ defmodule Lumutro.UsersTest do
   use Lumutro.DataCase
 
   alias Lumutro.Users
+  alias Lumutro.Users.{User, UserToken}
+
+  alias Lumutro.Organizations
 
   import Lumutro.UsersFixtures
-  alias Lumutro.Users.{User, UserToken}
+  import Lumutro.OrganizationsFixtures
 
   describe "get_user_by_email/1" do
     test "does not return the user if the email does not exist" do
@@ -502,6 +505,28 @@ defmodule Lumutro.UsersTest do
   describe "inspect/2 for the User module" do
     test "does not include password" do
       refute inspect(%User{password: "123456"}) =~ "password: \"123456\""
+    end
+  end
+
+  describe "with_memberships/1 for the User module" do
+    setup do
+      user = user_fixture()
+      organization_for_user = organization_fixture(%{name: "Organization name"})
+
+      Organizations.create_membership(organization_for_user, user)
+
+      %{user: user}
+    end
+
+    test "returns user with preloaded memberships and organizations", %{user: user} do
+      user_with_memberships = Users.with_memberships(user)
+
+      %{organizations: [organization]} = user_with_memberships
+      %{memberships: [membership]} = user_with_memberships
+
+      assert organization.name == "Organization name"
+      assert membership.organization.id == organization.id
+      assert membership.role == :member
     end
   end
 end
