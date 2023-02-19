@@ -2,10 +2,11 @@ defmodule LumutroWeb.Organizations.OrganizationController do
   use LumutroWeb, :controller
 
   alias Lumutro.Organizations
+  alias Lumutro.Users
   alias Lumutro.Organizations.Organization
 
   def index(conn, _params) do
-    organizations = Organizations.list_organizations()
+    %{organizations: organizations} = Users.with_memberships(conn.assigns.current_user)
     render(conn, :index, organizations: organizations)
   end
 

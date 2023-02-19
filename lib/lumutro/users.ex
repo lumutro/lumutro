@@ -350,4 +350,17 @@ defmodule Lumutro.Users do
       {:error, :user, changeset, _} -> {:error, changeset}
     end
   end
+
+  @doc """
+  Return memberships and organizations for a user
+
+  ## Examples
+
+    iex> with_memberships(user)
+    %User{memberships: [...], accounts: [...]}
+  """
+  def with_memberships(user) do
+    user
+    |> Repo.preload([:memberships, :organizations], skip_organization_id: true)
+  end
 end
